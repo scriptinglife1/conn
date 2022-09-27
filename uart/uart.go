@@ -104,6 +104,11 @@ const (
 	Two Stop = 2
 )
 
+type Conn interface {
+	conn.Conn
+	io.Reader
+}
+
 // Port is the interface to be provided to device drivers.
 //
 // The device driver, that is the driver for the peripheral connected over
@@ -123,7 +128,7 @@ type Port interface {
 	//
 	// There's rarely a reason to use anything else than One stop bit and 8 bits
 	// per character.
-	Connect(f physic.Frequency, stopBit Stop, parity Parity, flow Flow, bits int) (conn.Conn, error)
+	Connect(f physic.Frequency, stopBit Stop, parity Parity, flow Flow, bits int) (Conn, error)
 }
 
 // PortCloser is a UART port that can be closed.
